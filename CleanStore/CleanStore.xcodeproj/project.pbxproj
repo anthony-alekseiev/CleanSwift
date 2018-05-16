@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7FAD69EB20AB6C0D00BF5BA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69EA20AB6C0D00BF5BA2 /* AppDelegate.swift */; };
-		7FAD69ED20AB6C0D00BF5BA2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD69EC20AB6C0D00BF5BA2 /* ViewController.swift */; };
 		7FAD69F020AB6C0D00BF5BA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FAD69EE20AB6C0D00BF5BA2 /* Main.storyboard */; };
 		7FAD69F220AB6C0E00BF5BA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FAD69F120AB6C0E00BF5BA2 /* Assets.xcassets */; };
 		7FAD69F520AB6C0E00BF5BA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FAD69F320AB6C0E00BF5BA2 /* LaunchScreen.storyboard */; };
@@ -40,7 +39,6 @@
 /* Begin PBXFileReference section */
 		7FAD69E720AB6C0D00BF5BA2 /* CleanStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CleanStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FAD69EA20AB6C0D00BF5BA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7FAD69EC20AB6C0D00BF5BA2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7FAD69EF20AB6C0D00BF5BA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7FAD69F120AB6C0E00BF5BA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7FAD69F420AB6C0E00BF5BA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -97,7 +95,6 @@
 			children = (
 				7FAD6A0A20AB6C3000BF5BA2 /* Scenes */,
 				7FAD69EA20AB6C0D00BF5BA2 /* AppDelegate.swift */,
-				7FAD69EC20AB6C0D00BF5BA2 /* ViewController.swift */,
 				7FAD69EE20AB6C0D00BF5BA2 /* Main.storyboard */,
 				7FAD69F120AB6C0E00BF5BA2 /* Assets.xcassets */,
 				7FAD69F320AB6C0E00BF5BA2 /* LaunchScreen.storyboard */,
@@ -241,7 +238,6 @@
 				7FAD6A1C20AB6E5E00BF5BA2 /* CreateOrderInteractor.swift in Sources */,
 				7FAD6A1420AB6E5E00BF5BA2 /* CreateOrderWorker.swift in Sources */,
 				7FAD6A1A20AB6E5E00BF5BA2 /* CreateOrderViewController.swift in Sources */,
-				7FAD69ED20AB6C0D00BF5BA2 /* ViewController.swift in Sources */,
 				7FAD6A1620AB6E5E00BF5BA2 /* CreateOrderRouter.swift in Sources */,
 				7FAD69EB20AB6C0D00BF5BA2 /* AppDelegate.swift in Sources */,
 				7FAD6A1220AB6E5E00BF5BA2 /* CreateOrderPresenter.swift in Sources */,

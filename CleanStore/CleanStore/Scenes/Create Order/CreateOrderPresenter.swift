@@ -15,6 +15,7 @@ import UIKit
 protocol CreateOrderPresentationLogic
 {
   func presentSomething(response: CreateOrder.Something.Response)
+    func presentExpirationDate(response: CreateOrder.FormatExpirationDate.Response)
 }
 
 class CreateOrderPresenter: CreateOrderPresentationLogic
@@ -22,6 +23,19 @@ class CreateOrderPresenter: CreateOrderPresentationLogic
   weak var viewController: CreateOrderDisplayLogic?
   
   // MARK: Do something
+    
+    let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        return dateFormatter
+    }()
+    
+    func presentExpirationDate(response: CreateOrder.FormatExpirationDate.Response) {
+        let date = dateFormatter.string(from: response.date)
+        let viewModel = CreateOrder.FormatExpirationDate.ViewModel(date: date)
+        viewController?.displayExpirationDate(viewModel: viewModel)
+    }
   
   func presentSomething(response: CreateOrder.Something.Response)
   {
