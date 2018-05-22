@@ -12,23 +12,24 @@
 
 import UIKit
 
-protocol CreateOrderBusinessLogic
-{
+protocol CreateOrderBusinessLogic {
     var shippingMethods: [String] {get}
     func formatExpirationDate(request: CreateOrder.FormatExpirationDate.Request)
-  func doSomething(request: CreateOrder.Something.Request)
+    func updateOrder(request: CreateOrder.UpdateOrder.Request)
+    func createOrder(request: CreateOrder.CreateOrder.Request)
+    func showOrderToEdit(request: CreateOrder.EditOrder.Request)
 }
 
-protocol CreateOrderDataStore
-{
-  //var name: String { get set }
+protocol CreateOrderDataStore {
+    var orderToEdit: Order? { get set }
 }
 
 class CreateOrderInteractor: CreateOrderBusinessLogic, CreateOrderDataStore
 {
   var presenter: CreateOrderPresentationLogic?
-  var worker: CreateOrderWorker?
-  //var name: String = ""
+  var ordersWorker = OrdersWorker(ordersStore: OrdersMemStore())
+    var orderToEdit: Order?
+
     
     var shippingMethods = [
         "Standard Shipping",
@@ -42,13 +43,60 @@ class CreateOrderInteractor: CreateOrderBusinessLogic, CreateOrderDataStore
         let response = CreateOrder.FormatExpirationDate.Response(date: request.date)
         presenter?.presentExpirationDate(response: response)
     }
-  
-  func doSomething(request: CreateOrder.Something.Request)
-  {
-    worker = CreateOrderWorker()
-    worker?.doSomeWork()
     
-    let response = CreateOrder.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    func createOrder(request: CreateOrder.CreateOrder.Request) {
+        let orderToCreate = buildOrderFromOrderFormFields(request.orderFormFields)
+        ordersWorker.createOrder(orderToCreate: orderToCreate) { (order: Order?) in
+            self.orderToEdit = order
+            let response = CreateOrder.CreateOrder.Response(order: order)
+            self.presenter?.presentCreateOrder(response: response)
+        }
+    }
+    
+    func updateOrder(request: CreateOrder.UpdateOrder.Request) {
+        let orderToUpdate = buildOrderFromOrderFormFields(request.orderFormFields)
+        ordersWorker.updateOrder(orderToUpdate: orderToUpdate) { order in
+            self.orderToEdit = order
+            let response = CreateOrder.UpdateOrder.Response(order: order)
+            self.presenter?.presentUpdatedOrder(response: response)
+        }
+    }
+    
+    func showOrderToEdit(request: CreateOrder.EditOrder.Request) {
+        if let orderToEdit = orderToEdit {
+            let response = CreateOrder.EditOrder.Response(order: orderToEdit)
+            presenter?.presentOrderToEdit(response: response)
+        }
+    }
+    
+    private func buildOrderFromOrderFormFields(_
+        orderFormFields: CreateOrder.OrderFormFields) -> Order {
+        let billingAddress = Address(street1:
+            orderFormFields.billingAddressStreet1, street2:
+            orderFormFields.billingAddressStreet2, city:
+            orderFormFields.billingAddressCity, state:
+            orderFormFields.billingAddressState, zip:
+            orderFormFields.billingAddressZIP)
+        let paymentMethod = PaymentMethod(creditCardNumber:
+            orderFormFields.paymentMethodCreditCardNumber,
+                                          expirationDate:
+            orderFormFields.paymentMethodExpirationDate, cvv:
+            orderFormFields.paymentMethodCVV)
+        let shipmentAddress = Address(street1:
+            orderFormFields.shipmentAddressStreet1, street2:
+            orderFormFields.shipmentAddressStreet2, city:
+            orderFormFields.shipmentAddressCity, state:
+            orderFormFields.shipmentAddressState, zip:
+            orderFormFields.shipmentAddressZIP)
+        let shipmentMethod = ShipmentMethod(speed:
+            ShipmentMethod.ShippingSpeed(rawValue:
+                orderFormFields.shipmentMethodSpeed)!)
+        return Order(firstName: orderFormFields.firstName,
+                     lastName: orderFormFields.lastName, phone:
+            orderFormFields.phone, email: orderFormFields.email,
+                                   billingAddress: billingAddress, paymentMethod:
+            paymentMethod, shipmentAddress: shipmentAddress,
+                           shipmentMethod: shipmentMethod, id: orderFormFields.id,
+                           date: orderFormFields.date, total: orderFormFields.total)
+    }
 }

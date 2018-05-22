@@ -12,30 +12,104 @@
 
 import UIKit
 
-enum CreateOrder
-{
-  // MARK: Use cases
-    enum FormatExpirationDate {
-        struct Request {
+enum CreateOrder {
+    
+    struct OrderFormFields
+    {
+        // MARK: Contact info
+        var firstName: String
+        var lastName: String
+        var phone: String
+        var email: String
+        
+        // MARK: Payment info
+        var billingAddressStreet1: String
+        var billingAddressStreet2: String
+        var billingAddressCity: String
+        var billingAddressState: String
+        var billingAddressZIP: String
+        
+        var paymentMethodCreditCardNumber: String
+        var paymentMethodCVV: String
+        var paymentMethodExpirationDate: Date
+        var paymentMethodExpirationDateString: String
+        
+        // MARK: Shipping info
+        var shipmentAddressStreet1: String
+        var shipmentAddressStreet2: String
+        var shipmentAddressCity: String
+        var shipmentAddressState: String
+        var shipmentAddressZIP: String
+        
+        var shipmentMethodSpeed: Int
+        var shipmentMethodSpeedString: String
+        
+        // MARK: Misc
+        var id: String?
+        var date: Date
+        var total: NSDecimalNumber
+    }
+    
+    enum FormatExpirationDate
+    {
+        struct Request
+        {
             var date: Date
         }
-        struct Response {
+        struct Response
+        {
             var date: Date
         }
-        struct ViewModel {
+        struct ViewModel
+        {
             var date: String
         }
     }
-  enum Something
-  {
-    struct Request
+    
+    enum EditOrder
     {
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var order: Order
+        }
+        struct ViewModel
+        {
+            var orderFormFields: OrderFormFields
+        }
     }
-    struct Response
+    
+    enum CreateOrder
     {
+        struct Request
+        {
+            var orderFormFields: OrderFormFields
+        }
+        struct Response
+        {
+            var order: Order?
+        }
+        struct ViewModel
+        {
+            var order: Order?
+        }
     }
-    struct ViewModel
+    
+    enum UpdateOrder
     {
+        struct Request
+        {
+            var orderFormFields: OrderFormFields
+        }
+        struct Response
+        {
+            var order: Order?
+        }
+        struct ViewModel
+        {
+            var order: Order?
+        }
     }
-  }
 }
